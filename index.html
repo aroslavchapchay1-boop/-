@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moskov Sity</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+body, html { height:100%; font-family:'Orbitron', sans-serif; overflow-x:hidden; }
+
+/* GIF BACKGROUND */
+body {
+    background: url('background.gif') center/cover no-repeat;
+    position: relative;
+    color:#fff;
+}
+
+/* DARK OVERLAY */
+body::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.7);
+    z-index:-1;
+}
+
+/* HEADER */
+header {
+    text-align:center;
+    padding: 50px 20px;
+}
+header h1 {
+    font-size: 4rem;
+    color: #ff0055;
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+@keyframes neon {
+    from {text-shadow:0 0 5px #ff0055,0 0 10px #ff0055,0 0 20px #ff0055;}
+    to {text-shadow:0 0 20px #ff66aa,0 0 40px #ff66aa,0 0 80px #ff66aa;}
+}
+
+/* GLITCH EFFECT */
+.glitch {
+    position:relative;
+    color:#fff;
+    font-size:2rem;
+    animation: glitchAnim 1s infinite;
+    margin-top: 10px;
+}
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position:absolute;
+    left:0;
+}
+.glitch::before { left:2px; text-shadow:-2px 0 #ff00c8; top:0; }
+.glitch::after { left:-2px; text-shadow:2px 0 #00fff9; top:0; }
+@keyframes glitchAnim {
+    0% { transform: translate(0,0); }
+    20% { transform: translate(-2px,2px); }
+    40% { transform: translate(-2px,-2px); }
+    60% { transform: translate(2px,2px); }
+    80% { transform: translate(2px,-2px); }
+    100% { transform: translate(0,0); }
+}
+
+/* AUDIO PLAYER */
+.audio-player {
+    text-align:center;
+    margin: 40px 0;
+}
+.audio-player button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border:none;
+    border-radius:10px;
+    background:#ff0055;
+    color:#fff;
+    cursor:pointer;
+    transition: all 0.3s ease;
+}
+.audio-player button:hover {
+    background:#ff66aa;
+    transform: scale(1.1) rotate(-2deg);
+}
+audio { display:none; }
+
+/* CONTACTS */
+.contacts {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-top:50px;
+    font-size:1.2rem;
+}
+.contacts a {
+    color:#00ffff;
+    text-decoration:none;
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+.contacts a:hover {
+    color:#ff0055;
+    transform: scale(1.3) rotate(3deg);
+}
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:20px;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    font-size:0.9rem;
+    color:#888;
+    background:rgba(0,0,0,0.5);
+}
+
+/* COPY NOTIFICATION */
+#copyNotification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff0055;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    display: none;
+    z-index: 1000;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Moskov Sity</h1>
+    <div class="glitch" data-text="EPIC CINEMATIC"></div>
+</header>
+
+<div class="audio-player">
+    <button id="playBtn">▶ Play Music</button>
+    <audio id="audio" loop>
+        <source src="1.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+</div>
+
+<div class="contacts">
+    <a href="https://vk.com/sity00" target="_blank">VK</a>
+    <a id="discordCopy">Discord</a>
+    <a href="https://t.me/i_see_waves" target="_blank">Telegram</a>
+</div>
+
+<div id="copyNotification">Copied!</div>
+
+<footer>
+    © 2026 Moskov Sity — Все права защищены
+</footer>
+
+<script>
+// AUDIO PLAY / PAUSE
+const playBtn = document.getElementById('playBtn');
+const audio = document.getElementById('audio');
+playBtn.addEventListener('click', () => {
+    if(audio.paused){
+        audio.play();
+        playBtn.textContent = "⏸ Pause Music";
+    } else {
+        audio.pause();
+        playBtn.textContent = "▶ Play Music";
+    }
+});
+
+// DISCORD COPY
+const discordBtn = document.getElementById('discordCopy');
+const copyNotification = document.getElementById('copyNotification');
+discordBtn.addEventListener('click', () => {
+    const discordName = 'qwwag';
+    navigator.clipboard.writeText(discordName).then(() => {
+        copyNotification.style.display = 'block';
+        setTimeout(() => { copyNotification.style.display = 'none'; }, 1500);
+    });
+});
+</script>
+
+</body>
+</html>
